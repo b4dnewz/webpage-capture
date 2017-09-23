@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Filippo Conti",
+      "authorEmail": "filippo@codekraft.it",
+      "authorUrl": ""
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "webpage-capture",
+  "version": "0.0.1",
+  "description": "A super simple way to capture webpages screenshots using phantomjs.",
+  "homepage": "",
+  "author": {
+    "name": "Filippo Conti",
+    "email": "filippo@codekraft.it",
+    "url": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "webpage",
+    "screenshots"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^21.0.0",
+    "jest-cli": "^21.0.0"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "b4dnewz/webpage-capture",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "phantom": "^4.0.5"
+  }
+}
