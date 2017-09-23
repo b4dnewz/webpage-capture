@@ -1,3 +1,5 @@
+'use strict';
+
 const webpageCapture = require('../lib/index');
 const options = {};
 
