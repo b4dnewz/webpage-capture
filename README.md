@@ -2,10 +2,13 @@
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > A super simple way to capture webpages screenshots using phantomjs.
 
+[![NPM](https://nodei.co/npm/webpage-capture.png)](https://nodei.co/npm/webpage-capture/)
+
 ## Installation
 
 ```sh
 npm install --save webpage-capture
+yarn add webpage-capture
 ```
 
 ## Usage
@@ -16,7 +19,8 @@ const options = {};
 
 webpageCapture('codekraft.it', options, function (err, res) {
   if (err) {
-    return console.log(err);
+    console.log(err);
+    return;
   }
   console.log('Screenshot created at:', res);
 });
