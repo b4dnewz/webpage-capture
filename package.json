@@ -3,11 +3,7 @@
   "version": "0.0.1",
   "description": "A super simple way to capture webpages screenshots using phantomjs.",
   "homepage": "",
-  "author": {
-    "name": "Filippo Conti",
-    "email": "filippo@codekraft.it",
-    "url": ""
-  },
+  "author": "Filippo Conti <filippo@codekraft.it>",
   "files": [
     "lib"
   ],
@@ -18,11 +14,11 @@
   ],
   "devDependencies": {
     "coveralls": "^2.13.1",
-    "nsp": "^2.6.3",
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
     "jest": "^21.0.0",
-    "jest-cli": "^21.0.0"
+    "jest-cli": "^21.0.0",
+    "nsp": "^2.6.3"
   },
   "scripts": {
     "prepublish": "nsp check",
