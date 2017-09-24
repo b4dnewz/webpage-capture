@@ -29,7 +29,8 @@
     "extends": "xo-space",
     "env": {
       "jest": true,
-      "node": true
+      "node": true,
+      "browser": true
     }
   },
   "repository": "b4dnewz/webpage-capture",
