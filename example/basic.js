@@ -2,8 +2,9 @@
 
 const webpageCapture = require('../lib/index');
 const options = {
+  onlySuccess: true,
   whiteBackground: true,
-  crop: false,
+  crop: true,
   viewportSize: {
     width: 1280,
     height: 800
