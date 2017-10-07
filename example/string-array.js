@@ -13,8 +13,10 @@ const options = {
 };
 
 const pages = [
-  'https://codekraft.it/',
-  'https://github.com/codekraft-studio'
+  'https://gravatar.com/pewdiepie',
+  'https://profiles.wordpress.org/pewdiepie',
+  'https://myspace.com/pewdiepie',
+  'https://www.flickr.com/photos/pewdiepie'
 ];
 
 webpageCapture(pages, options, function (err, res) {
