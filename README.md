@@ -1,4 +1,4 @@
-# webpage-capture 
+# webpage-capture
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > A super simple way to capture webpages screenshots using phantomjs.
 
@@ -11,12 +11,16 @@ npm install --save webpage-capture
 yarn add webpage-capture
 ```
 
-## Usage
+---
 
+## Usage
+The script will accept either a __string__ or an __array__ of strings or objects:
 ```js
 const webpageCapture = require('webpage-capture');
-const options = {};
-
+webpageCapture(input, options, callback);
+```
+To capture a single page and exit you must pass a string with the url you want to capture:
+```js
 webpageCapture('codekraft.it', options, function (err, res) {
   if (err) {
     console.log(err);
@@ -25,6 +29,53 @@ webpageCapture('codekraft.it', options, function (err, res) {
   console.log('Screenshot created at:', res);
 });
 ```
+To capture multiple pages you can pass an array of urls:
+```js
+const array = [
+  'codekraft.it',
+  'github.com/codekraft-studio'
+];
+webpageCapture(array, options, function (err, res) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log('Screenshots created at:', res);
+});
+```
+
+---
+
+## Options
+#### onlySuccess
+Type: `Boolean`
+Default value: `false`
+
+If set to true only pages with a success status will be captured.
+
+#### renderOptions
+Type: `Object`
+Default value: `{
+  format: 'png',
+  quality: 80
+}`
+
+The options to pass to phantomjs page renderer.
+
+#### crop
+Type: `Object`
+Default value: `false`
+
+If true the screenshot will be cropped as __viewportSize__.
+
+#### viewportSize
+Type: `Object`
+Default value: `{
+  width: 1280,
+  height: 800
+}`
+
+The default page viewportSize for phantomjs.
 
 ---
 
