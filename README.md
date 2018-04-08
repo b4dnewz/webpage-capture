@@ -5,27 +5,60 @@
 [![NPM](https://nodei.co/npm/webpage-capture.png)](https://nodei.co/npm/webpage-capture/)
 
 ## Installation
-
+If you want to use it inside your scripts, save and install it in your project dependencies.
 ```sh
 npm install --save webpage-capture
 yarn add webpage-capture
 ```
+Once it has done you can require __webpage-capture__ in your script and start using it.
+
+## Global module
+You can also use it as a cli-tool installing it as a global module:
+```sh
+npm install -g webpage-capture
+yarn global add webpage-capture
+```
+Than you can start playing around with the options using the built-in help typing: `-h, --help`
 
 ---
 
 ## Usage
 The script will accept either a __string__ or an __array__ of strings or objects:
 ```js
-const webpageCapture = require('webpage-capture');
-webpageCapture(input, options, callback);
+const webCapture = require('webpage-capture');
+const options = {
+  debug: false,
+  output: './output',
+  outputType: 'file',
+  onlySuccess: false,
+  whiteBackground: true,
+  renderOptions: {
+    format: 'png',
+    quality: 80
+  },
+  crop: false,
+  clipRect: {
+    top: 0,
+    left: 0
+  },
+  viewport: 'desktop',
+  viewportSize: {
+    width: 1280,
+    height: 1024
+  },
+  userAgent: 'random'
+};
+const inputs = [
+  'google.it',
+  'google.com'
+];
+
+webCapture(inputs, options, callback);
 ```
-To capture a single page and exit you must pass a string with the url you want to capture:
+If you want to capture a single page only pass the first argument as a string and it will visit the page and take the screenshot for you in seconds.
 ```js
-webpageCapture('codekraft.it', options, function (err, res) {
-  if (err) {
-    console.log(err);
-    return;
-  }
+webCapture('codekraft.it', options, function (err, res) {
+  // if (err)
   console.log('Screenshot created at:', res);
 });
 ```
@@ -35,11 +68,8 @@ const array = [
   'codekraft.it',
   'github.com/codekraft-studio'
 ];
-webpageCapture(array, options, function (err, res) {
-  if (err) {
-    console.log(err);
-    return;
-  }
+webCapture(array, options, function (err, res) {
+  // if (err)
   console.log('Screenshots created at:', res);
 });
 ```
@@ -67,6 +97,24 @@ Type: `Object`
 Default value: `false`
 
 If true the screenshot will be cropped as __viewportSize__.
+
+#### userAgent
+Type: `string`
+Default value: `random`
+
+Let select the user agent to use, by default is a random browser user agent.
+
+#### debug
+Type: `Boolean`
+Default value: `false`
+
+If enabled show extra execution logs useful when debugging.
+
+#### whiteBackground
+Type: `Boolean`
+Default value: `true`
+
+Force the pages to have a white background color.
 
 #### viewportSize
 Type: `Object`
