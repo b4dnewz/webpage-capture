@@ -23,12 +23,50 @@ Than you can start playing around with the options using the built-in help typin
 ---
 
 ## Usage
-The script will accept either a __string__ or an __array__ of strings or objects:
+The most basic use is with a single input and default settings:
+```js
+const webCapture = require('webpage-capture');
+webCapture('https://github.com/b4dnewz', {}, (err, res) => {
+  // handle err
+  console.log('Output saved to:', res);
+});
+````
+You can also capture multiple source urls:
+```js
+const webCapture = require('webpage-capture');
+webCapture([
+  'https://github.com/b4dnewz',
+  'https://github.com/b4dnewz/webpage-capture'
+], {}, (err, res) => {
+  // handle err
+  console.log('Output saved to:', res);
+});
+````
+Or render HTML text and capture it:
+```js
+const webCapture = require('webpage-capture');
+webCapture('<h1>this is c00l</h1>', {}, (err, res) => {
+  // handle err
+  console.log('Output saved to:', res);
+});
+````
+It can also render the same source in multiple viewports resolutions:
+```js
+const webCapture = require('webpage-capture');
+webCapture('https://github.com/b4dnewz', {
+  viewport: ['desktop', 'laptop-mdpi', 'nexus-7']
+}, (err, res) => {
+  // handle err
+  console.log('Output saved to:', res);
+});
+````
+
+It can accept many options to customize the capturing behavior:
 ```js
 const webCapture = require('webpage-capture');
 const options = {
   debug: false,
-  output: './output',
+  outputDir: './output',
   outputType: 'file',
   onlySuccess: false,
   whiteBackground: true,
@@ -42,46 +80,36 @@ const options = {
     left: 0
   },
   viewport: 'desktop',
-  viewportSize: {
-    width: 1280,
-    height: 1024
-  },
   userAgent: 'random'
 };
-const inputs = [
-  'google.it',
-  'google.com'
-];
 
-webCapture(inputs, options, callback);
-```
-If you want to capture a single page only pass the first argument as a string and it will visit the page and take the screenshot for you in seconds.
-```js
-webCapture('codekraft.it', options, function (err, res) {
-  // if (err)
-  console.log('Screenshot created at:', res);
-});
-```
-To capture multiple pages you can pass an array of urls:
-```js
-const array = [
-  'codekraft.it',
-  'github.com/codekraft-studio'
-];
-webCapture(array, options, function (err, res) {
-  // if (err)
-  console.log('Screenshots created at:', res);
+webCapture('https://github.com/b4dnewz', options, (err, res) => {
+  // handle err
+  console.log('Output saved to:', res);
 });
 ```
 
 ---
 
 ## Options
+
 #### onlySuccess
 Type: `Boolean`
 Default value: `false`
 
 If set to true only pages with a success status will be captured.
+
+#### outputDir
+Type: `String`
+Default value: `./output`
+
+Where to save the files in case of *'file'* outputType.
+
+#### outputType
+Type: `String`
+Default value: `file`
+
+The capture output type that can be: __file__, __base64__ or __html__.
 
 #### renderOptions
 Type: `Object`
