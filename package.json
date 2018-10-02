@@ -16,17 +16,23 @@
     "screenshots"
   ],
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "coveralls": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-xo-space": "^0.18.0",
     "jest": "^22.4.3",
-    "jest-cli": "^22.4.3",
-    "nsp": "^3.2.1"
+    "nsp": "^3.2.1",
+    "regenerator-runtime": "^0.12.1"
   },
   "scripts": {
     "prepublish": "nsp check --warn-only",
     "pretest": "eslint . --fix",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "start": "babel-node lib/index.js"
   },
   "eslintConfig": {
     "extends": "xo-space",
@@ -45,9 +51,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^2.6.0",
     "commander": "^2.15.1",
-    "debug": "^3.1.0",
-    "phantom": "^4.0.12"
+    "lodash": "^4.17.11",
+    "puppeteer": "^1.8.0"
   }
 }
