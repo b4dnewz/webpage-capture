@@ -1,10 +1,12 @@
-'use strict';
+import path from 'path';
+import WebpageCapture from '../lib/index';
 
-const webpageCapture = require('../lib/index');
-
-webpageCapture('https://codekraft.it/', {}, function (err, res) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('Result:', res);
+const capture = new WebpageCapture({
+  outputDir: path.resolve(__dirname, '../output')
 });
+
+capture
+  .scan('https://github.com/b4dnewz')
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+  .then(() => capture.close());
