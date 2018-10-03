@@ -16,6 +16,7 @@
     "screenshots"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
@@ -25,14 +26,15 @@
     "eslint": "^4.19.1",
     "eslint-config-xo-space": "^0.18.0",
     "jest": "^22.4.3",
-    "nsp": "^3.2.1",
-    "regenerator-runtime": "^0.12.1"
+    "nsp": "^3.2.1"
   },
   "scripts": {
     "prepublish": "nsp check --warn-only",
     "pretest": "eslint . --fix",
     "test": "jest --coverage",
-    "start": "babel-node lib/index.js"
+    "start": "babel-node lib/index.js",
+    "dev": "babel lib --watch --out-dir dist",
+    "build": "babel lib --out-dir dist"
   },
   "eslintConfig": {
     "extends": "xo-space",
