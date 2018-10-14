@@ -6,7 +6,7 @@ const capture = new WebpageCapture({
 });
 
 capture
-  .scan('https://github.com/b4dnewz', {
+  .capture('https://github.com/b4dnewz', {
     captureSelector: 'div.h-card'
   })
   .then(res => console.log(res))

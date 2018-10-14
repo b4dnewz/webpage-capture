@@ -6,7 +6,7 @@ const capture = new WebpageCapture({
 });
 
 capture
-  .scan('https://github.com/b4dnewz')
+  .capture('https://github.com/b4dnewz')
   .then(res => console.log(res))
   .catch(err => console.log(err))
   .then(() => capture.close());
