@@ -5,7 +5,7 @@ const capture = new WebpageCapture({
   debug: true,
   timeout: 0,
   waitUntil: 'networkidle0',
-  outputDir: path.resolve(__dirname, '../output'),
+  outputDir: path.resolve(__dirname, './output'),
   viewport: 'nexus-10'
 });
 

@@ -1,4 +1,5 @@
 node_modules
 coverage
-output
+*/output/*
+!*/output/.gitkeep
 dist
