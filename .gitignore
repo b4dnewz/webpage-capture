@@ -1,5 +1,9 @@
 node_modules
 coverage
-*/output/*
-!*/output/.gitkeep
 dist
+
+# Output folders
+__tests__/output/*
+!__tests__/output/.gitkeep
+example/output/*
+!example/output/.gitkeep
