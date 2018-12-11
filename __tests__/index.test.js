@@ -4,7 +4,10 @@ import WebpageCapture from '../lib/index';
 
 const capturer = new WebpageCapture({
   outputDir: path.resolve(__dirname, './output'),
-  viewport: 'nexus-5'
+  viewport: 'nexus-5',
+  headers: {
+    Test: 'foo'
+  }
 });
 
 const outputCollector = [];
@@ -87,6 +90,19 @@ describe('WebpageCapture', () => {
   });
 
   describe('capture', () => {
+    it('accept multiple sources', async () => {
+      const testUrls = ['http://google.com', 'http://example.com', 'http://google.com'];
+      const res = await capturer.capture(testUrls);
+      outputCollector.push(res.map(r => r.path));
+      expect(res.length).toBe(2);
+      expect(res[0]).toMatchObject({
+        url: testUrls[0]
+      });
+      expect(res[1]).toMatchObject({
+        url: testUrls[1]
+      });
+    });
+
     it('capture output as pdf', async () => {
       const testUrl = 'http://google.com';
       const res = await capturer.capture(testUrl, {
@@ -122,5 +138,18 @@ describe('WebpageCapture', () => {
         path: expect.any(String)
       });
     }, 60000);
+
+    it('support scripts loading', async () => {
+      const testUrl = 'http://example.com';
+      const res = await capturer.capture(testUrl, {
+        scripts: [
+          'window.foo = "bar"'
+        ]
+      });
+      outputCollector.push(res[0].path);
+      await expect(
+        capturer.page.evaluate(() => window.foo)
+      ).resolves.toEqual('bar');
+    });
   });
 });
