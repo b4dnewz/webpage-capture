@@ -132,10 +132,10 @@ describe('WebpageCapture', () => {
       const res = await capturer.capture(testUrl, {
         viewport: ['desktop-firefox', 'desktop-safari']
       });
-      outputCollector.push(res[0].path);
+      outputCollector.push(res.map(r => r.path));
       expect(res[0]).toMatchObject({
         url: testUrl,
-        path: expect.any(String)
+        path: expect.any(Array)
       });
     }, 60000);
 
