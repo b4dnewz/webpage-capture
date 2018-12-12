@@ -68,7 +68,6 @@ const options = {
   debug: false,
   outputDir: './output',
   outputType: 'file',
-  onlySuccess: false,
   whiteBackground: true,
   renderOptions: {
     format: 'png',
@@ -92,12 +91,6 @@ webCapture('https://github.com/b4dnewz', options, (err, res) => {
 ---
 
 ## Options
-
-#### onlySuccess
-Type: `Boolean`
-Default value: `false`
-
-If set to true only pages with a success status will be captured.
 
 #### outputDir
 Type: `String`
