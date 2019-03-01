@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import * as _ from 'lodash'
+import * as fs from 'fs';
+import * as path from 'path';
 import WebpageCapture from '../lib/index';
 
 const capturer = new WebpageCapture({
@@ -13,7 +14,7 @@ const capturer = new WebpageCapture({
 const outputCollector = [];
 
 describe('WebpageCapture', () => {
-  jest.setTimeout(60000);
+  jest.setTimeout(10000);
 
   beforeAll(async () => {
     await capturer.prepare();
@@ -21,7 +22,8 @@ describe('WebpageCapture', () => {
 
   afterAll(async () => {
     await capturer.close();
-    outputCollector.forEach(f => fs.unlinkSync(f));
+    _.flatten(outputCollector)
+      .forEach(f => fs.unlinkSync(f));
   });
 
   it('throw if output folder does not exist', async () => {
