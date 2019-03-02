@@ -1,91 +1,60 @@
 # webpage-capture
+
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> A super simple way to capture webpages screenshots using phantomjs.
+
+> Fastly capture the web using headless browser with many options
 
 [![NPM](https://nodei.co/npm/webpage-capture.png)](https://nodei.co/npm/webpage-capture/)
 
-## Installation
-If you want to use it inside your scripts, save and install it in your project dependencies.
-```sh
-npm install --save webpage-capture
-yarn add webpage-capture
-```
-Once it has done you can require __webpage-capture__ in your script and start using it.
+This program is an overlay of [puppeteer](https://github.com/GoogleChrome/puppeteer) which is designed to allow the easy extraction of single or multiple pages or sections, in multiple formats and in the fastest way possible.
 
-## Global module
-You can also use it as a cli-tool installing it as a global module:
-```sh
-npm install -g webpage-capture
-yarn global add webpage-capture
+
+## Installation as module
+
+If you want to use it inside your scripts, save and install it in your project dependencies.
+
 ```
+npm install --save webpage-capture
+```
+
+Once it has done you can import **webpage-capture** in your scripts and start using it, refer to the [usage](#usage) section.
+
+## Installation as CLI
+
+You can also use it as a cli-tool installing it as a global module:
+
+```
+npm install -g webpage-capture
+```
+
 Than you can start playing around with the options using the built-in help typing: `-h, --help`
 
 ---
 
 ## Usage
-The most basic use is with a single input and default settings:
+
+First you have to import __webpage-capture__ and initializire a new capturer with default or custom options.
+
 ```js
-const webCapture = require('webpage-capture');
-webCapture('https://github.com/b4dnewz', {}, (err, res) => {
-  // handle err
-  console.log('Output saved to:', res);
-});
-````
-You can also capture multiple source urls:
+import WebCapture from 'webpage-capture'
+const capturer = new WebCapture()
+
+(async () => {
+  const res = await capturer.capture('https://github.com/b4dnewz/webpage-capture')
+  console.log(res);
+})().catch(console.log)
+    .then(capturer.close())
+```
+
+Don't forget to __close__ the capturer once you have done, otherwise the headless browser instance will not disconnect correctly.
+
+The capture method can handle __strings__ and __array of strings__, for example:
+
 ```js
-const webCapture = require('webpage-capture');
-webCapture([
+await capturer.capture([
   'https://github.com/b4dnewz',
   'https://github.com/b4dnewz/webpage-capture'
-], {}, (err, res) => {
-  // handle err
-  console.log('Output saved to:', res);
-});
-````
-Or render HTML text and capture it:
-```js
-const webCapture = require('webpage-capture');
-webCapture('<h1>this is c00l</h1>', {}, (err, res) => {
-  // handle err
-  console.log('Output saved to:', res);
-});
-````
-It can also render the same source in multiple viewports resolutions:
-```js
-const webCapture = require('webpage-capture');
-webCapture('https://github.com/b4dnewz', {
-  viewport: ['desktop', 'laptop-mdpi', 'nexus-7']
-}, (err, res) => {
-  // handle err
-  console.log('Output saved to:', res);
-});
-````
-
-It can accept many options to customize the capturing behavior:
-```js
-const webCapture = require('webpage-capture');
-const options = {
-  debug: false,
-  outputDir: './output',
-  outputType: 'file',
-  whiteBackground: true,
-  renderOptions: {
-    format: 'png',
-    quality: 80
-  },
-  crop: false,
-  clipRect: {
-    top: 0,
-    left: 0
-  },
-  viewport: 'desktop',
-  userAgent: 'random'
-};
-
-webCapture('https://github.com/b4dnewz', options, (err, res) => {
-  // handle err
-  console.log('Output saved to:', res);
-});
+])
 ```
 
 ---
@@ -93,80 +62,120 @@ webCapture('https://github.com/b4dnewz', options, (err, res) => {
 ## Options
 
 #### outputDir
+
 Type: `String`
 Default value: `./output`
 
-Where to save the files in case of *'file'* outputType.
+Specify a custom directory where place the captured files.
 
-#### outputType
+#### timeout
+
+Type: `Number`
+Default value: `30000`
+
+Specify the default page timeout to load a page (in ms).
+
+#### viewport
+
 Type: `String`
-Default value: `file`
+Default value: `false`
 
-The capture output type that can be: __file__, __base64__ or __html__.
+Specify a default viewport to use in all requests.
 
-#### renderOptions
-Type: `Object`
-Default value: `{
-  format: 'png',
-  quality: 80
-}`
+#### headers
 
-The options to pass to phantomjs page renderer.
-
-#### crop
 Type: `Object`
 Default value: `false`
 
-If true the screenshot will be cropped as __viewportSize__.
-
-#### userAgent
-Type: `string`
-Default value: `random`
-
-Let select the user agent to use, by default is a random browser user agent.
+Specify the default headers to use for every request.
 
 #### debug
+
 Type: `Boolean`
 Default value: `false`
 
-If enabled show extra execution logs useful when debugging.
+Run the script in __headfull__ mode with a delay of 1 second so you can see what is doing.
 
-#### whiteBackground
-Type: `Boolean`
-Default value: `true`
+---
 
-Force the pages to have a white background color.
+## Examples
 
-#### viewportSize
-Type: `Object`
-Default value: `{
-  width: 1280,
-  height: 800
-}`
+If you want to see or execute the full example code please refer to the relative file in the [examples](examples) folder.
 
-The default page viewportSize for phantomjs.
+#### Basic use
+
+Capture a single page and exit.
+
+```js
+await capture.capture('https://github.com/b4dnewz');
+```
+
+#### Capture from html text
+
+Render some HTML content, capture to file and exit.
+
+```js
+await capture.capture('<h1>Codekraft is good</h1>');
+```
+
+#### Capture an element by selector
+
+Capture only the element found by the selector.
+
+```js
+await capture.capture('https://github.com/b4dnewz', {
+  captureSelector: 'div.h-card'
+});
+```
+
+#### Capture using a different viewport
+
+Capture a page using different viewports.
+
+```js
+await capture.capture('https://github.com/b4dnewz', {
+  viewport: 'desktop-firefox'
+});
+
+await capture.capture('https://github.com/b4dnewz', {
+  viewport: '600x800'
+});
+
+// Multiple viewports at once
+await capture.capture('https://github.com/b4dnewz', {
+  viewport: ['ipad-mini', 'nexus-10']
+});
+```
 
 ---
 
 ## License
 
-MIT © [Filippo Conti]()
+MIT © [Filippo Conti](LICENSE)
 
 ## Contributing
 
-1. Create an issue and describe your idea
-2. Fork the project (https://github.com/b4dnewz/webpage-capture/fork)
-3. Create your feature branch (`git checkout -b my-new-feature`)
-4. Commit your changes (`git commit -am 'Add some feature'`)
-5. Write some tests and run it (`npm run test'`)
-6. Publish the branch (`git push origin my-new-feature`)
-7. Create a new Pull Request
+1.  Create an issue and describe your idea
+2.  Fork the project (<https://github.com/b4dnewz/webpage-capture/fork>)
+3.  Create your feature branch (`git checkout -b my-new-feature`)
+4.  Commit your changes (`git commit -am 'Add some feature'`)
+5.  Write some tests and run it (`npm run test'`)
+6.  Publish the branch (`git push origin my-new-feature`)
+7.  Create a new Pull Request
+
 
 [npm-image]: https://badge.fury.io/js/webpage-capture.svg
+
 [npm-url]: https://npmjs.org/package/webpage-capture
+
 [travis-image]: https://travis-ci.org/b4dnewz/webpage-capture.svg?branch=master
+
 [travis-url]: https://travis-ci.org/b4dnewz/webpage-capture
+
 [daviddm-image]: https://david-dm.org/b4dnewz/webpage-capture.svg?theme=shields.io
+
 [daviddm-url]: https://david-dm.org/b4dnewz/webpage-capture
+
 [coveralls-image]: https://coveralls.io/repos/b4dnewz/webpage-capture/badge.svg
+
 [coveralls-url]: https://coveralls.io/r/b4dnewz/webpage-capture
