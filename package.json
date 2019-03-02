@@ -1,6 +1,6 @@
 {
   "name": "webpage-capture",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0",
   "description": "Capture the web using headless chrome",
   "homepage": "https://github.com/b4dnewz/webpage-capture",
   "author": "Filippo Conti <filippo@codekraft.it>",
