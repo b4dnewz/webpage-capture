@@ -30,6 +30,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
     "ora": "^3.1.0",
     "puppeteer": "^1.12.2"
   },
@@ -40,6 +41,7 @@
     "@babel/preset-env": "^7.3.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
+    "coveralls": "^3.0.3",
     "eslint": "^5.14.1",
     "eslint-config-xo": "^0.26.0",
     "jest": "^24.1.0",
