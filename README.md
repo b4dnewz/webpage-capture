@@ -147,6 +147,22 @@ await capture.capture('https://github.com/b4dnewz', {
 });
 ```
 
+#### Capture all viewport by category
+
+Capture a page in multiple viewports filtered by category.
+
+```js
+// By hard-coded category filter
+await capture.capture('https://github.com/b4dnewz', {
+  viewportCategory: 'mobile'
+});
+
+// By custom name string match
+await capture.capture('https://github.com/b4dnewz', {
+  viewportCategory: 'nexus'
+});
+```
+
 ---
 
 ## License
