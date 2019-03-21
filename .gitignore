@@ -3,5 +3,4 @@ coverage
 dist
 
 # Output folders
-**/output/*
-!**/output/.gitkeep
+output
