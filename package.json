@@ -23,15 +23,16 @@
     "prebuild": "npm run test",
     "lint": "eslint . --fix",
     "test": "jest --coverage",
-    "start": "babel-node lib/index.js",
     "dev": "babel lib --watch --out-dir dist",
     "build": "babel lib --out-dir dist"
   },
   "repository": "b4dnewz/webpage-capture",
   "dependencies": {
+    "file-url": "^2.0.2",
+    "is-html": "^1.1.0",
+    "is-valid-path": "^0.1.1",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
-    "ora": "^3.1.0",
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
