@@ -37,7 +37,6 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
-    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
@@ -58,10 +57,15 @@
       "sourceType": "module"
     },
     "rules": {
+      "semi": 2,
       "no-console": "warn"
     }
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "__tests__/fixtures"
+    ]
   }
 }
