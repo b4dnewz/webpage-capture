@@ -1,13 +1,12 @@
 import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as path from 'path';
-import WebpageCapture from '../lib/index';
-
+import {default as WebpageCapture, devices} from '../lib/index';
+import {defaultViewport} from '../lib/config';
 import {isValidBase64} from '../lib/utils/validators';
 
 const capturer = new WebpageCapture({
 	outputDir: path.resolve(__dirname, './output'),
-	viewport: 'non-existing',
 	headers: {
 		Test: 'foo'
 	}
@@ -17,6 +16,40 @@ let outputCollector = [];
 
 describe('webpage-capture', () => {
 	jest.setTimeout(10000);
+
+  describe('constructor', () => {
+    it('set instance options', () => {
+      const opts = {
+        outputDir: 'test',
+        debug: true,
+        headers: {
+          'x-powered-by': 'test'
+        }
+      };
+      const inst = new WebpageCapture(opts);
+      expect(inst.options).toMatchObject(opts);
+    });
+
+    it('set default viewport based on input', () => {
+      const inst = new WebpageCapture({
+        viewport: 'nexus-10'
+      });
+      expect(inst.options).toMatchObject({
+        viewport: {
+          name: 'nexus-10',
+          viewport: expect.any(Object)
+        }
+      });
+    });
+
+    it('throw on invalid viewport', () => {
+      expect(() => {
+        new WebpageCapture({
+          viewport: 'invalid'
+        });
+      }).toThrow();
+    });
+  });
 
 	const prepare = jest.spyOn(capturer, 'prepare');
 
@@ -37,7 +70,7 @@ describe('webpage-capture', () => {
 
 	it('fall back to default viewport', () => {
 		expect(capturer.options).toMatchObject({
-			viewport: false
+			viewport: defaultViewport
 		});
 	});
 
@@ -49,6 +82,11 @@ describe('webpage-capture', () => {
     expect(res[0].error).toMatch('Invalid viewport');
 		expect(res[0].output).toBeNull();
 	});
+
+  it('export the devices list', () => {
+    expect(devices).toBeDefined();
+    expect(Array.isArray(devices)).toBeTruthy();
+  });
 
   describe('getOutPath', () => {
     it('use custom name if provided', () => {
@@ -247,7 +285,14 @@ describe('webpage-capture', () => {
 			expect(res).toBeDefined();
 		});
 
-    it('accept a local file', async () => {
+    it('accept a local html file', async () => {
+      const filePath = path.resolve(__dirname, 'fixtures/file.html');
+			const res = await capturer.capture(filePath);
+			outputCollector.push(res[0].output);
+			expect(res).toBeDefined();
+		});
+
+    it('accept a local list file', async () => {
       const filePath = path.resolve(__dirname, 'fixtures/list.txt');
 			const res = await capturer.capture(filePath);
       outputCollector = outputCollector.concat(res.map(r => r.output));
@@ -291,7 +336,6 @@ describe('webpage-capture', () => {
 		}, 10000);
 
 		describe('load scripts', () => {
-
 			it('support scripts loading as strings', async () => {
 				const testUrl = 'http://example.com';
 				const res = await capturer.capture(testUrl, {
@@ -318,10 +362,21 @@ describe('webpage-capture', () => {
 				).resolves.toEqual('red');
 			});
 
+      it.skip('support scripts loading from remote', async () => {
+        const testUrl = 'https://raw.githubusercontent.com/b4dnewz/webpage-capture/master/__tests__/fixtures/script.js';
+				const res = await capturer.capture(testUrl, {
+					scripts: [
+						path.resolve(__dirname, 'fixtures/script.js')
+					]
+				});
+				outputCollector.push(res[0].output);
+				await expect(
+					capturer.page.evaluate(() => window.document.body.style.backgroundColor)
+				).resolves.toEqual('red');
+      });
 		});
 
 		describe('load styles', () => {
-
 			it('support styles loading as string', async () => {
 				const res = await capturer.capture('about:blank', {
 					styles: [
@@ -346,6 +401,18 @@ describe('webpage-capture', () => {
 				).resolves.toMatch('background-color: red;');
 			});
 
+      it.skip('support styles loading from remote', async () => {
+        const testUrl = 'https://raw.githubusercontent.com/b4dnewz/webpage-capture/master/__tests__/fixtures/style.css';
+				const res = await capturer.capture(testUrl, {
+					scripts: [
+						path.resolve(__dirname, 'fixtures/script.js')
+					]
+				});
+				outputCollector.push(res[0].output);
+				await expect(
+					capturer.page.evaluate(() => window.document.body.style.backgroundColor)
+				).resolves.toEqual('red');
+      });
 		});
 	});
 });
