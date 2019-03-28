@@ -18,20 +18,12 @@ describe('webpage-capture:utils', () => {
 			expect(prepareArguments(args)).toEqual(args);
 		});
 
-		it('tries to load html files content', () => {
-			prepareArguments([
-				'some/path/to/index.html'
-			]);
-			expect(fs.readFileSync).toHaveBeenCalled();
-			expect(fs.readFileSync).toHaveBeenCalledWith('some/path/to/index.html', 'utf-8');
-		});
-
 		it('tries to load and parse txt files', () => {
 			prepareArguments([
 				'some/path/to/list.txt'
 			]);
 			expect(fs.readFileSync).toHaveBeenCalled();
-			expect(fs.readFileSync).toHaveBeenCalledWith('some/path/to/list.txt', 'utf-8');
+			expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringMatching('list.txt'), 'utf-8');
 		});
 	});
 

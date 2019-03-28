@@ -1,7 +1,7 @@
 {
   "name": "webpage-capture",
   "version": "0.2.1",
-  "description": "Capture the web using headless chrome",
+  "description": "Capture the web in many ways using headless chrome",
   "homepage": "https://github.com/b4dnewz/webpage-capture",
   "author": "Filippo Conti <filippo@codekraft.it>",
   "license": "MIT",
@@ -9,12 +9,13 @@
     "dist"
   ],
   "main": "dist/index.js",
-  "bin": {
-    "webcapture": "dist/cli.js"
-  },
   "keywords": [
     "webpage",
-    "screenshots"
+    "capture",
+    "webpage-capture",
+    "screenshots",
+    "webpage-screenshots",
+    "puppeteer"
   ],
   "scripts": {
     "prepublish": "npm run build",
@@ -22,45 +23,50 @@
     "prebuild": "npm run test",
     "lint": "eslint . --fix",
     "test": "jest --coverage",
-    "start": "babel-node lib/index.js",
     "dev": "babel lib --watch --out-dir dist",
     "build": "babel lib --out-dir dist"
   },
   "repository": "b4dnewz/webpage-capture",
   "dependencies": {
-    "commander": "^2.19.0",
+    "file-url": "^2.0.2",
+    "is-html": "^1.1.0",
+    "is-valid-path": "^0.1.1",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
-    "ora": "^3.1.0",
     "puppeteer": "^1.12.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
-    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.14.1",
-    "eslint-config-xo": "^0.26.0",
-    "jest": "^24.1.0",
-    "regenerator-runtime": "^0.13.1"
+    "jest": "^24.1.0"
   },
   "eslintConfig": {
-    "extends": "xo",
+    "extends": "eslint:recommended",
     "env": {
-      "jest": true,
       "node": true,
-      "browser": true
+      "browser": true,
+      "jest": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
     },
     "rules": {
-      "no-await-in-loop": 0,
-      "valid-jsdoc": 0,
-      "capitalized-comments": 0
+      "semi": 2,
+      "no-console": "warn"
     }
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "__tests__/fixtures"
+    ]
   }
 }

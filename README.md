@@ -1,10 +1,8 @@
 # webpage-capture
 
+> Capture the web in many ways using headless chrome
+
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-
-> Fastly capture the web using headless browser with many options
-
-[![NPM](https://nodei.co/npm/webpage-capture.png)](https://nodei.co/npm/webpage-capture/)
 
 This program is an overlay of [puppeteer](https://github.com/GoogleChrome/puppeteer) which is designed to allow the easy extraction of single or multiple pages or sections, in multiple formats and in the fastest way possible.
 
@@ -21,10 +19,10 @@ Once it has done you can import **webpage-capture** in your scripts and start us
 
 ## Installation as CLI
 
-You can also use it as a cli-tool installing it as a global module:
+You can also use it from the command line using the [cli module](), installing it globally:
 
 ```
-npm install -g webpage-capture
+npm install -g webpage-capture-cli
 ```
 
 Than you can start playing around with the options using the built-in help typing: `-h, --help`
@@ -40,13 +38,74 @@ import WebCapture from 'webpage-capture'
 const capturer = new WebCapture()
 
 (async () => {
-  const res = await capturer.capture('https://github.com/b4dnewz/webpage-capture')
+
+  // Single input
+  await capturer.capture('https://google.it')
+
+  // Multiple inputs
+  const res = await capturer.capture([
+    'https://github.com/b4dnewz',
+    'https://github.com/b4dnewz/webpage-capture'
+  ])
   console.log(res);
+
 })().catch(console.log)
     .then(capturer.close())
 ```
 
 Don't forget to __close__ the capturer once you have done, otherwise the headless browser instance will not disconnect correctly.
+
+### Instance Options
+
+The constructor can also take options to set default values for all the subsequent captures:
+
+```js
+const capturer = new WebCapture({
+  // default options
+})
+```
+
+#### outputDir
+
+Type: `String`  
+Default value: `process.cwd()`
+
+Specify a custom directory where place the captured files.
+
+#### timeout
+
+Type: `Number`  
+Default value: `30000`
+
+Specify the default page timeout to load a page (in ms).
+
+#### headers
+
+Type: `Object`  
+
+Set the headers to be used during all the requests.
+
+#### viewport
+
+Type: `String, Object`  
+
+Set the default viewport that is used when not specified.
+
+#### debug
+
+Type: `Boolean`  
+Default value: `false`
+
+Run the script in __headfull__ mode with a delay of 1 second so you can see what is doing.
+
+#### launchArgs
+
+Type: `Array`  
+Default value: `[]`
+
+Custom launch arguments to be passed to Chromium instance, if you are a linux user
+and you are experiencing some issues, you may want to [disable sandbox](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox) or setup differently.
+
 
 The capture method can handle __strings__ and __array of strings__, for example:
 
@@ -59,42 +118,146 @@ await capturer.capture([
 
 ---
 
-## Options
+## Methods
 
-#### outputDir
+### file(input, outputFilePath, [options])
 
-Type: `String`
-Default value: `./output`
+Capture a screnshot of the given `input` and save it to the given `outputFilePath`.
 
-Specify a custom directory where place the captured files.
+Returns a `Promise<void>` that resolves when the screenshot is written.
+
+### buffer(input, [options])
+
+Capture a screnshot of the given `input`.
+
+Returns a `Promise<Buffer>` with the screenshot as binary.
+
+### base64(input, [options])
+
+Capture a screnshot of the given `input`.
+
+Returns a `Promise<string>` with the screenshot as [Base64](https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding).
+
+### capture(inputs, [options])
+
+Capture one or multiple `input` using the given options.
+For a complete list of options see below.
+
+Returns a `Promise<void>` that resolves when the screenshot is written.
+
+---
+
+## Capture Options
+
+#### type
+
+Type: `String`  
+Default value: `png`  
+Possible values: `png, jpeg, pdf, html, buffer, base64`  
+
+Select the capture output type.
 
 #### timeout
 
-Type: `Number`
-Default value: `30000`
+Type: `Number`  
 
-Specify the default page timeout to load a page (in ms).
-
-#### viewport
-
-Type: `String`
-Default value: `false`
-
-Specify a default viewport to use in all requests.
+The timeout to use when capturing input.
 
 #### headers
 
-Type: `Object`
+Type: `Object`  
+
+An object of headers to use when capturing input.
+
+```js
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  headers: {
+    'x-powered-by': 'webpage-capture'
+  }
+})
+```
+
+#### waitFor
+
+Type: `Number`  
+
+Wait for the specified time before capturing the page. (in milliseconds)
+
+#### waitUntil
+
+Type: `String`  
+
+Wait until the selector is visible into page.
+
+#### fullPage
+
+Type: `Boolean`  
+
+Capture the full scrollable page, not just the visible viewport.
+
+#### scripts
+
+Type: `String[]`  
+
+Inject scripts into the page.
+
+```js
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  scripts: [
+    'http://example.com/some/remote/file.js',
+    './local-file.js',
+    'document.body.style.backgroundColor = "hotpink";'
+  ]
+})
+```
+
+#### styles
+
+Type: `String[]`  
+
+Inject styles into the page.
+
+```js
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  styles: [
+    'http://example.com/some/remote/file.css',
+    './local-file.css',
+    'body { background-color: "hotpink"; }'
+  ]
+})
+```
+
+#### viewport
+
+Type: `String, String[]`  
+
+One or more viewport to capture.
+
+```js
+// capture single viewport
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  viewport: 'nexus-5'
+})
+
+// capture multiple viewports
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  viewport: ['nexus-5', 'nexus-10']
+})
+```
+
+#### viewportCategory
+
+Type: `String`  
 Default value: `false`
 
-Specify the default headers to use for every request.
+Capture all viewports that match the category name.
 
-#### debug
-
-Type: `Boolean`
-Default value: `false`
-
-Run the script in __headfull__ mode with a delay of 1 second so you can see what is doing.
+```js
+// capture all mobile viewports
+await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
+  viewportCategory: 'mobile'
+})
+```
 
 ---
 
