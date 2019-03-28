@@ -19,13 +19,13 @@ Once it has done you can import **webpage-capture** in your scripts and start us
 
 ## Installation as CLI
 
-You can also use it from the command line using the [cli module](), installing it globally:
+You can also use it from the command line using the [cli module](https://github.com/b4dnewz/webpage-capture-cli), installing it globally:
 
 ```
 npm install -g webpage-capture-cli
 ```
 
-Than you can start playing around with the options using the built-in help typing: `-h, --help`
+Than you can start playing around with __webcapture__ command and with the options using the built-in help typing: `--help`
 
 ---
 
@@ -105,16 +105,6 @@ Default value: `[]`
 
 Custom launch arguments to be passed to Chromium instance, if you are a linux user
 and you are experiencing some issues, you may want to [disable sandbox](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox) or setup differently.
-
-
-The capture method can handle __strings__ and __array of strings__, for example:
-
-```js
-await capturer.capture([
-  'https://github.com/b4dnewz',
-  'https://github.com/b4dnewz/webpage-capture'
-])
-```
 
 ---
 
@@ -257,73 +247,6 @@ Capture all viewports that match the category name.
 await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
   viewportCategory: 'mobile'
 })
-```
-
----
-
-## Examples
-
-If you want to see or execute the full example code please refer to the relative file in the [examples](examples) folder.
-
-#### Basic use
-
-Capture a single page and exit.
-
-```js
-await capture.capture('https://github.com/b4dnewz');
-```
-
-#### Capture from html text
-
-Render some HTML content, capture to file and exit.
-
-```js
-await capture.capture('<h1>Codekraft is good</h1>');
-```
-
-#### Capture an element by selector
-
-Capture only the element found by the selector.
-
-```js
-await capture.capture('https://github.com/b4dnewz', {
-  captureSelector: 'div.h-card'
-});
-```
-
-#### Capture using a different viewport
-
-Capture a page using different viewports.
-
-```js
-await capture.capture('https://github.com/b4dnewz', {
-  viewport: 'desktop-firefox'
-});
-
-await capture.capture('https://github.com/b4dnewz', {
-  viewport: '600x800'
-});
-
-// Multiple viewports at once
-await capture.capture('https://github.com/b4dnewz', {
-  viewport: ['ipad-mini', 'nexus-10']
-});
-```
-
-#### Capture all viewport by category
-
-Capture a page in multiple viewports filtered by category.
-
-```js
-// By hard-coded category filter
-await capture.capture('https://github.com/b4dnewz', {
-  viewportCategory: 'mobile'
-});
-
-// By custom name string match
-await capture.capture('https://github.com/b4dnewz', {
-  viewportCategory: 'nexus'
-});
 ```
 
 ---
