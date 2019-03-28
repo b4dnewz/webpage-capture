@@ -362,17 +362,16 @@ describe('webpage-capture', () => {
 				).resolves.toEqual('red');
 			});
 
-      it.skip('support scripts loading from remote', async () => {
-        const testUrl = 'https://raw.githubusercontent.com/b4dnewz/webpage-capture/master/__tests__/fixtures/script.js';
-				const res = await capturer.capture(testUrl, {
+      it('support scripts loading from remote', async () => {
+				const res = await capturer.capture('about:blank', {
 					scripts: [
-						path.resolve(__dirname, 'fixtures/script.js')
+						'https://codekraft.it/script.js'
 					]
 				});
 				outputCollector.push(res[0].output);
 				await expect(
 					capturer.page.evaluate(() => window.document.body.style.backgroundColor)
-				).resolves.toEqual('red');
+				).resolves.toEqual('black');
       });
 		});
 
@@ -401,17 +400,16 @@ describe('webpage-capture', () => {
 				).resolves.toMatch('background-color: red;');
 			});
 
-      it.skip('support styles loading from remote', async () => {
-        const testUrl = 'https://raw.githubusercontent.com/b4dnewz/webpage-capture/master/__tests__/fixtures/style.css';
-				const res = await capturer.capture(testUrl, {
-					scripts: [
-						path.resolve(__dirname, 'fixtures/script.js')
+      it('support styles loading from remote', async () => {
+				const res = await capturer.capture('about:blank', {
+					styles: [
+						'https://codekraft.it/style.css'
 					]
 				});
 				outputCollector.push(res[0].output);
 				await expect(
 					capturer.page.evaluate(() => window.document.body.style.backgroundColor)
-				).resolves.toEqual('red');
+				).resolves.not.toEqual('black');
       });
 		});
 	});
