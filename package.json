@@ -8,7 +8,7 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "keywords": [
     "webpage",
     "capture",
@@ -20,47 +20,31 @@
   "scripts": {
     "prepublish": "npm run build",
     "pretest": "npm run lint",
-    "prebuild": "npm run test",
-    "lint": "eslint . --fix",
+    "lint": "tslint -p . --fix",
     "test": "jest --coverage",
-    "dev": "babel lib --watch --out-dir dist",
-    "build": "babel lib --out-dir dist"
+    "dev": "tsc --watch",
+    "build": "tsc"
   },
   "repository": "b4dnewz/webpage-capture",
   "dependencies": {
-    "file-url": "^2.0.2",
+    "file-url": "^3.0.0",
     "is-html": "^1.1.0",
     "is-valid-path": "^0.1.1",
     "lodash": "^4.17.11",
     "mkdirp": "^0.5.1",
-    "puppeteer": "^1.12.2"
+    "puppeteer": "^1.15.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^24.1.0",
+    "@types/jest": "^24.0.12",
+    "@types/lodash": "^4.14.125",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^12.0.0",
+    "@types/puppeteer": "^1.12.4",
     "coveralls": "^3.0.3",
-    "eslint": "^5.14.1",
-    "jest": "^24.1.0"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "node": true,
-      "browser": true,
-      "jest": true,
-      "es6": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
-    },
-    "rules": {
-      "semi": 2,
-      "no-console": "warn"
-    }
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
   },
   "jest": {
     "testEnvironment": "node",
