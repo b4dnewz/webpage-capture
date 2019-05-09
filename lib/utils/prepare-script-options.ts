@@ -1,10 +1,10 @@
 import {
+  isValidPath,
   isValidURL,
-  isValidPath
-} from './validators';
+} from "./validators";
 
 export default function(v) {
-  const opts = {};
+  const opts: any = {};
 
   if (isValidURL(v)) {
     opts.url = v;
