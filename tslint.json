@@ -5,10 +5,9 @@
   ],
   "jsRules": {},
   "rules": {
-    "interface-name": false,
     "object-literal-sort-keys": false,
     "max-line-length": false,
-    "no-namespace": {
+    "interface-name": {
       "severity": "warning"
     }
   },

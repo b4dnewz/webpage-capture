@@ -6,7 +6,7 @@
   "author": "Filippo Conti <filippo@codekraft.it>",
   "license": "MIT",
   "files": [
-    "dist"
+    "src"
   ],
   "main": "src/index.js",
   "keywords": [
