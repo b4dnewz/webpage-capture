@@ -9,6 +9,7 @@
     "src"
   ],
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "keywords": [
     "webpage",
     "capture",
@@ -20,6 +21,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "pretest": "npm run lint",
+    "prebuild": "npm run test",
     "lint": "tslint -p . --fix",
     "test": "jest --coverage",
     "dev": "tsc --watch",

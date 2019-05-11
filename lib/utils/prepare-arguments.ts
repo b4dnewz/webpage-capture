@@ -8,27 +8,24 @@ import {
   isValidURL,
 } from "./validators";
 
-export default function(arr) {
-  return _.chain(arr).map((i) => {
+export default function(arr: string[]): string[] {
+  const res = _.map(arr, (i) => {
     if (isValidURL(i)) {
       return i;
     }
-
     if (isValidHTML(i)) {
       return i;
     }
-
     if (isValidPath(i)) {
       if (i.endsWith(".html")) {
         return fileUrl(i);
       }
-
       if (i.endsWith(".txt")) {
         const filePath = path.resolve(process.cwd(), i);
         return fs.readFileSync(filePath, "utf-8").trim().split(/\r?\n/);
       }
     }
-
     return i;
-  }).flatten().value();
+  });
+  return _.flatten(res);
 }

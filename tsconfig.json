@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./src",
-    "allowJs": true,
+    "declaration": true,
     "esModuleInterop": true
   },
   "include": [

@@ -1,5 +1,4 @@
-import * as devices from "puppeteer/DeviceDescriptors";
-import { Device } from "puppeteer/DeviceDescriptors";
+import { default as devices, Device } from "puppeteer/DeviceDescriptors";
 
 const puppeteerDevices: Device[] = Object.values(devices)
   .filter((d) => d.name)

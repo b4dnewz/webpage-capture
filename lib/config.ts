@@ -1,5 +1,5 @@
 import {Viewport} from "puppeteer/DeviceDescriptors";
-import {WebpageCapture} from "./index";
+import {Options} from "./capturer";
 
 const defaultViewport: Viewport = {
   deviceScaleFactor: 2,
@@ -10,7 +10,7 @@ const defaultViewport: Viewport = {
   width: 1280,
 };
 
-const defaultOptions: WebpageCapture.Options = {
+const defaultOptions: Options = {
   debug: false,
   launchArgs: [],
   outputDir: process.cwd(),
