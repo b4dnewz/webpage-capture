@@ -22,9 +22,11 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "prebuild": "npm run test",
+    "postbuild": "npm run docs",
     "lint": "tslint -p . --fix",
     "test": "jest --coverage",
     "dev": "tsc --watch",
+    "docs": "typedoc lib",
     "build": "tsc"
   },
   "repository": "b4dnewz/webpage-capture",
@@ -46,6 +48,7 @@
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   },
   "jest": {
