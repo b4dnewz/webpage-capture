@@ -1,0 +1,410 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>webpage-capture</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">webpage-capture</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> webpage-capture</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="webpage-capture">webpage-capture</h1>
+				<p><a href="https://npmjs.org/package/webpage-capture"><img src="https://badge.fury.io/js/webpage-capture.svg" alt="NPM version"></a> <a href="https://travis-ci.org/b4dnewz/webpage-capture"><img src="https://travis-ci.org/b4dnewz/webpage-capture.svg?branch=master" alt="Build Status"></a> <a href="https://david-dm.org/b4dnewz/webpage-capture"><img src="https://david-dm.org/b4dnewz/webpage-capture.svg?theme=shields.io" alt="Dependency Status"></a> <a href="https://coveralls.io/r/b4dnewz/webpage-capture"><img src="https://coveralls.io/repos/b4dnewz/webpage-capture/badge.svg" alt="Coverage percentage"></a></p>
+				<p>This program is an overlay of <a href="https://github.com/GoogleChrome/puppeteer">puppeteer</a> which is designed to allow the easy extraction of single or multiple pages or sections, in multiple formats and in the fastest way possible.</p>
+				<h2 id="features">Features</h2>
+				<ul>
+					<li>Simplified api</li>
+					<li>Supports TypeScript</li>
+				</ul>
+				<h2 id="documentation">Documentation</h2>
+				<p>Checkout the auto generated <a href="https://b4dnewz.github.io/webpage-capture/">online documentation</a> for a full reference.</p>
+				<h2 id="installation-as-module">Installation as module</h2>
+				<p>If you want to use it inside your scripts, save and install it in your project dependencies.</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> webpage-capture</code></pre><p>Once it has done you can import <strong>webpage-capture</strong> in your scripts and start using it, refer to the <a href="#usage">usage</a> section.</p>
+				<h2 id="installation-as-command">Installation as command</h2>
+				<p>You can also use it from the command line using the <a href="https://github.com/b4dnewz/webpage-capture-cli">cli module</a>, installing it globally:</p>
+				<pre><code>npm install -<span class="hljs-keyword">g</span> webpage-<span class="hljs-keyword">capture</span>-<span class="hljs-keyword">cli</span></code></pre><p>Than you can start playing around with <strong>webcapture</strong> command and with the options using the built-in help typing: <code>--help</code></p>
+				<hr>
+				<h2 id="usage">Usage</h2>
+				<p>First you have to import <strong>webpage-capture</strong> and initialize a new capturer with default or custom options.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> {WebpageCapture} <span class="hljs-keyword">from</span> <span class="hljs-string">'webpage-capture'</span>
+<span class="hljs-keyword">const</span> capturer = <span class="hljs-keyword">new</span> WebpageCapture()
+
+(<span class="hljs-keyword">async</span> () =&gt; {
+
+  <span class="hljs-comment">// Single input</span>
+  <span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://google.it'</span>)
+
+  <span class="hljs-comment">// Multiple inputs</span>
+  <span class="hljs-keyword">await</span> capturer.capture([
+    <span class="hljs-string">'https://github.com/b4dnewz'</span>,
+    <span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>
+  ])
+
+})().catch(<span class="hljs-built_in">console</span>.log).then(capturer.close())</code></pre>
+				<p>Don&#39;t forget to <strong>close</strong> the capturer once you have done, otherwise the headless browser instance will not disconnect correctly.</p>
+				<h3 id="instance-options">Instance Options</h3>
+				<p>The constructor can also take options to set default values for all the subsequent captures:</p>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> {WebpageCapture} <span class="hljs-keyword">from</span> <span class="hljs-string">'webpage-capture'</span>
+<span class="hljs-keyword">const</span> capturer = <span class="hljs-keyword">new</span> WebpageCapture({
+  <span class="hljs-comment">// default options</span>
+})</code></pre>
+				<h4 id="outputdir">outputDir</h4>
+				<p>Type: <code>String</code><br>Default value: <code>process.cwd()</code></p>
+				<p>Specify a custom directory where place the captured files.</p>
+				<h4 id="timeout">timeout</h4>
+				<p>Type: <code>Number</code><br>Default value: <code>30000</code></p>
+				<p>Specify the default page timeout to load a page (in ms).</p>
+				<h4 id="headers">headers</h4>
+				<p>Type: <code>Object</code>  </p>
+				<p>Set the headers to be used during all the requests.</p>
+				<h4 id="viewport">viewport</h4>
+				<p>Type: <code>String, Object</code>  </p>
+				<p>Set the default viewport that is used when not specified.</p>
+				<h4 id="debug">debug</h4>
+				<p>Type: <code>Boolean</code><br>Default value: <code>false</code></p>
+				<p>Run the script in <strong>headfull</strong> mode with a delay of 1 second so you can see what is doing.</p>
+				<h4 id="launchargs">launchArgs</h4>
+				<p>Type: <code>Array</code><br>Default value: <code>[]</code></p>
+				<p>Custom launch arguments to be passed to Chromium instance, if you are a linux user
+				and you are experiencing some issues, you may want to <a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#setting-up-chrome-linux-sandbox">disable sandbox</a> or setup differently.</p>
+				<hr>
+				<h2 id="methods">Methods</h2>
+				<h3 id="file-input-outputfilepath-options-">file(input, outputFilePath, [options])</h3>
+				<p>Capture a screnshot of the given <code>input</code> and save it to the given <code>outputFilePath</code>.</p>
+				<p>Returns a <code>Promise</code> that resolves when the screenshot is written.</p>
+				<h3 id="buffer-input-options-">buffer(input, [options])</h3>
+				<p>Capture a screnshot of the given <code>input</code>.</p>
+				<p>Returns a <code>Promise&lt;Buffer&gt;</code> with the screenshot as binary.</p>
+				<h3 id="base64-input-options-">base64(input, [options])</h3>
+				<p>Capture a screnshot of the given <code>input</code>.</p>
+				<p>Returns a <code>Promise&lt;string&gt;</code> with the screenshot as <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding">Base64</a>.</p>
+				<h3 id="capture-inputs-options-">capture(inputs, [options])</h3>
+				<p>Capture one or multiple <code>input</code> using the given options.
+				For a complete list of options see below.</p>
+				<p>Returns a <code>Promise</code> that resolves when the screenshot is written.</p>
+				<hr>
+				<h2 id="capture-options">Capture Options</h2>
+				<h4 id="type">type</h4>
+				<p>Type: <code>String</code><br>Default value: <code>png</code><br>Possible values: <code>png, jpeg, pdf, html, buffer, base64</code>  </p>
+				<p>Select the capture output type.</p>
+				<h4 id="timeout">timeout</h4>
+				<p>Type: <code>Number</code>  </p>
+				<p>The timeout to use when capturing input.</p>
+				<h4 id="headers">headers</h4>
+				<p>Type: <code>Object</code>  </p>
+				<p>An object of headers to use when capturing input.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">headers</span>: {
+    <span class="hljs-string">'x-powered-by'</span>: <span class="hljs-string">'webpage-capture'</span>
+  }
+})</code></pre>
+				<h4 id="waitfor">waitFor</h4>
+				<p>Type: <code>Number</code>  </p>
+				<p>Wait for the specified time before capturing the page. (in milliseconds)</p>
+				<h4 id="waituntil">waitUntil</h4>
+				<p>Type: <code>String</code>  </p>
+				<p>Wait until the selector is visible into page.</p>
+				<h4 id="selector">selector</h4>
+				<p>Type: <code>String</code>  </p>
+				<p>Capture only the element that match the selector.</p>
+				<h4 id="fullpage">fullPage</h4>
+				<p>Type: <code>Boolean</code>  </p>
+				<p>Capture the full scrollable page, not just the visible viewport.</p>
+				<h4 id="scripts">scripts</h4>
+				<p>Type: <code>String[]</code>  </p>
+				<p>Inject scripts into the page.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">scripts</span>: [
+    <span class="hljs-string">'http://example.com/some/remote/file.js'</span>,
+    <span class="hljs-string">'./local-file.js'</span>,
+    <span class="hljs-string">'document.body.style.backgroundColor = "hotpink";'</span>
+  ]
+})</code></pre>
+				<h4 id="styles">styles</h4>
+				<p>Type: <code>String[]</code>  </p>
+				<p>Inject styles into the page.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">styles</span>: [
+    <span class="hljs-string">'http://example.com/some/remote/file.css'</span>,
+    <span class="hljs-string">'./local-file.css'</span>,
+    <span class="hljs-string">'body { background-color: "hotpink"; }'</span>
+  ]
+})</code></pre>
+				<h4 id="viewport">viewport</h4>
+				<p>Type: <code>String, String[]</code>  </p>
+				<p>One or more viewport to capture.</p>
+				<pre><code class="language-js"><span class="hljs-comment">// capture single viewport</span>
+<span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">viewport</span>: <span class="hljs-string">'nexus-5'</span>
+})
+
+<span class="hljs-comment">// capture multiple viewports</span>
+<span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">viewport</span>: [<span class="hljs-string">'nexus-5'</span>, <span class="hljs-string">'nexus-10'</span>]
+})</code></pre>
+				<h4 id="viewportcategory">viewportCategory</h4>
+				<p>Type: <code>String</code><br>Default value: <code>false</code></p>
+				<p>Capture all viewports that match the category name.</p>
+				<pre><code class="language-js"><span class="hljs-comment">// capture all mobile viewports</span>
+<span class="hljs-keyword">await</span> capturer.capture(<span class="hljs-string">'https://github.com/b4dnewz/webpage-capture'</span>, {
+  <span class="hljs-attr">viewportCategory</span>: <span class="hljs-string">'mobile'</span>
+})</code></pre>
+				<hr>
+				<h2 id="license">License</h2>
+				<p>This project is released under <a href="LICENSE">MIT License</a> by <a href="https://b4dnewz.github.io/">Filippo Conti</a></p>
+				<h2 id="contributing">Contributing</h2>
+				<ol>
+					<li>Create an issue and describe your idea</li>
+					<li>Fork the project (<a href="https://github.com/b4dnewz/webpage-capture/fork">https://github.com/b4dnewz/webpage-capture/fork</a>)</li>
+					<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+					<li>Commit your changes (<code>git commit -am &#39;Add some feature&#39;</code>)</li>
+					<li>Write some tests and run it (<code>npm run test&#39;</code>)</li>
+					<li>Publish the branch (<code>git push origin my-new-feature</code>)</li>
+					<li>Create a new Pull Request</li>
+				</ol>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/webpagecapture.html" class="tsd-kind-icon">Webpage<wbr>Capture</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/captureoptions.html" class="tsd-kind-icon">Capture<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/executionoptions.html" class="tsd-kind-icon">Execution<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/filenameoptions.html" class="tsd-kind-icon">Filename<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/instanceoptions.html" class="tsd-kind-icon">Instance<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/options.html" class="tsd-kind-icon">Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/requestoptions.html" class="tsd-kind-icon">Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/result.html" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/runoptions.html" class="tsd-kind-icon">Run<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/viewportobject.html" class="tsd-kind-icon">Viewport<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#capturetype" class="tsd-kind-icon">Capture<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#devicenames" class="tsd-kind-icon">Device<wbr>Names</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#deviceorviewport" class="tsd-kind-icon">Device<wbr>OrViewport</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#outputoptions" class="tsd-kind-icon">Output<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#viewportinput" class="tsd-kind-icon">Viewport<wbr>Input</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#alldevices" class="tsd-kind-icon">all<wbr>Devices</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#customdevices" class="tsd-kind-icon">custom<wbr>Devices</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#devicenames" class="tsd-kind-icon">device<wbr>Names</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#notbase64" class="tsd-kind-icon">not<wbr>Base64</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#puppeteerdevices" class="tsd-kind-icon">puppeteer<wbr>Devices</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#supportedtypes" class="tsd-kind-icon">supported<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#viewportobject" class="tsd-kind-icon">viewport<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#viewportstringpattern" class="tsd-kind-icon">viewport<wbr>String<wbr>Pattern</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#default" class="tsd-kind-icon">default</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getviewport" class="tsd-kind-icon">get<wbr>Viewport</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getviewports" class="tsd-kind-icon">get<wbr>Viewports</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isdevice" class="tsd-kind-icon">is<wbr>Device</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalidbase64" class="tsd-kind-icon">is<wbr>Valid<wbr>Base64</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalidhtml" class="tsd-kind-icon">is<wbr>ValidHTML</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalidurl" class="tsd-kind-icon">is<wbr>ValidURL</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isvalidviewportobject" class="tsd-kind-icon">is<wbr>Valid<wbr>Viewport<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#validatetype" class="tsd-kind-icon">validate<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#defaultviewport" class="tsd-kind-icon">default<wbr>Viewport</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="globals.html#partialviewport" class="tsd-kind-icon">partial<wbr>Viewport</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

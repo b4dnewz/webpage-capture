@@ -1,23 +1,29 @@
 # webpage-capture
 
-> Capture the web in many ways using headless chrome
-
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
 This program is an overlay of [puppeteer](https://github.com/GoogleChrome/puppeteer) which is designed to allow the easy extraction of single or multiple pages or sections, in multiple formats and in the fastest way possible.
 
+## Features
+
+- Simplified api
+- Supports TypeScript
+
+## Documentation
+
+Checkout the auto generated [online documentation](https://b4dnewz.github.io/webpage-capture/) for a full reference.
 
 ## Installation as module
 
 If you want to use it inside your scripts, save and install it in your project dependencies.
 
 ```
-npm install --save webpage-capture
+npm install webpage-capture
 ```
 
 Once it has done you can import **webpage-capture** in your scripts and start using it, refer to the [usage](#usage) section.
 
-## Installation as CLI
+## Installation as command
 
 You can also use it from the command line using the [cli module](https://github.com/b4dnewz/webpage-capture-cli), installing it globally:
 
@@ -31,11 +37,11 @@ Than you can start playing around with __webcapture__ command and with the optio
 
 ## Usage
 
-First you have to import __webpage-capture__ and initializire a new capturer with default or custom options.
+First you have to import __webpage-capture__ and initialize a new capturer with default or custom options.
 
 ```js
-import WebCapture from 'webpage-capture'
-const capturer = new WebCapture()
+import {WebpageCapture} from 'webpage-capture'
+const capturer = new WebpageCapture()
 
 (async () => {
 
@@ -43,14 +49,12 @@ const capturer = new WebCapture()
   await capturer.capture('https://google.it')
 
   // Multiple inputs
-  const res = await capturer.capture([
+  await capturer.capture([
     'https://github.com/b4dnewz',
     'https://github.com/b4dnewz/webpage-capture'
   ])
-  console.log(res);
 
-})().catch(console.log)
-    .then(capturer.close())
+})().catch(console.log).then(capturer.close())
 ```
 
 Don't forget to __close__ the capturer once you have done, otherwise the headless browser instance will not disconnect correctly.
@@ -60,7 +64,8 @@ Don't forget to __close__ the capturer once you have done, otherwise the headles
 The constructor can also take options to set default values for all the subsequent captures:
 
 ```js
-const capturer = new WebCapture({
+import {WebpageCapture} from 'webpage-capture'
+const capturer = new WebpageCapture({
   // default options
 })
 ```
@@ -114,7 +119,7 @@ and you are experiencing some issues, you may want to [disable sandbox](https://
 
 Capture a screnshot of the given `input` and save it to the given `outputFilePath`.
 
-Returns a `Promise<void>` that resolves when the screenshot is written.
+Returns a `Promise` that resolves when the screenshot is written.
 
 ### buffer(input, [options])
 
@@ -133,7 +138,7 @@ Returns a `Promise<string>` with the screenshot as [Base64](https://developer.mo
 Capture one or multiple `input` using the given options.
 For a complete list of options see below.
 
-Returns a `Promise<void>` that resolves when the screenshot is written.
+Returns a `Promise` that resolves when the screenshot is written.
 
 ---
 
@@ -178,6 +183,12 @@ Wait for the specified time before capturing the page. (in milliseconds)
 Type: `String`  
 
 Wait until the selector is visible into page.
+
+#### selector
+
+Type: `String`  
+
+Capture only the element that match the selector.
 
 #### fullPage
 
@@ -253,7 +264,7 @@ await capturer.capture('https://github.com/b4dnewz/webpage-capture', {
 
 ## License
 
-MIT © [Filippo Conti](LICENSE)
+This project is released under [MIT License](LICENSE) by [Filippo Conti](https://b4dnewz.github.io/)
 
 ## Contributing
 
